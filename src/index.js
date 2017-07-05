@@ -41,8 +41,8 @@ export const MdColorPicker = ({elementName, createIcon, defaultColor}) => {
     const container = document.createElement("div")
     container.setAttribute("class", "color-container")
 
-    const toggle = () => {
-        if (container.getAttribute("class") === "color-container")
+    const toggle = (force) => {
+        if (container.getAttribute("class") === "color-container" && force!==false)
             container.setAttribute("class", "color-container-open")
         else
             container.setAttribute("class", "color-container")
@@ -62,13 +62,14 @@ export const MdColorPicker = ({elementName, createIcon, defaultColor}) => {
             image.firstElementChild.style.fill = color;
             return false
         })
+        image.addEventListener("blur",()=>toggle(false))
         element.appendChild(container)
 
     } else {
         console.log(element)
         element.parentElement.appendChild(container)
-        
         element.addEventListener("click",toggle)
+        element.addEventListener("blur",()=>toggle(false))
     }
     ee.on("grid_closed",toggle)
     return ee
