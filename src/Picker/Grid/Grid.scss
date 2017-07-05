@@ -1,0 +1,10 @@
+.grid-wrapper{
+    position: absolute;    
+    display: inline-flex;
+    flex-direction: column;
+    z-index: 100;  
+    background-color: #FFFFFF;
+}
+.grid{
+    display: inline-flex;  
+}

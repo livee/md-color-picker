@@ -1,0 +1,26 @@
+@import './Grid/Grid.scss';
+@import './Line/Line.scss';
+@import './Square/Square.scss';
+@import "@material/elevation/mixins";
+@import "@material/elevation/mdc-elevation";
+@import "@material/ripple/mixins";
+
+.round-btn{
+    width: 40px;
+    height: 40px;
+    margin: 15px;
+    cursor: pointer;
+    padding: 10px;  
+    border-radius: 50%;
+    @include mdc-ripple-base;
+    @include mdc-ripple-bg((pseudo: "::before"));
+    @include mdc-ripple-fg((pseudo: "::after"));
+    
+    overflow: hidden;
+}
+.color-container{
+    display: none;
+}
+.color-container-open{
+    display: block;
+}
