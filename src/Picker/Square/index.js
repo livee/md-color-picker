@@ -10,10 +10,14 @@ import EventEmitter from 'wolfy87-eventemitter'
 export const Square = (element, color, ee) => {
     const square = document.createElement("div")
     square.setAttribute("class","square grow")
-
-    square.addEventListener("click", ()=>{
+    // mouse down event fires before the click event
+    square.addEventListener("mousedown", (event)=>{
+        event.stopImmediatePropagation()
+        event.stopPropagation()
+        
         ee.trigger("color-changed",[color])
         ee.trigger("grid_closed",null)
+        
     })
 
     square.style.backgroundColor = color

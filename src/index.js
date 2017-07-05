@@ -55,12 +55,6 @@ export const MdColorPicker = ({elementName, createIcon, defaultColor}) => {
      */
     const hideOnBlur =  (element)=>{
         element.addEventListener("blur",(event)=>{
-            // if the click was not in a square, we close the grid
-            if(event.explicitOriginalTarget.classList){
-                if(event.explicitOriginalTarget.classList.contains("square")){
-                   return 
-                }
-            } 
             toggle(false)
         })
     }
