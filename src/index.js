@@ -16,6 +16,7 @@ import EventEmitter from 'wolfy87-eventemitter'
  * @property {string} defaultColor
  */
 
+
 /**
  * 
  * @param {Object} object 
@@ -48,8 +49,23 @@ export const MdColorPicker = ({elementName, createIcon, defaultColor}) => {
             container.setAttribute("class", "color-container")
         return false
     }
-
     Grid(container, materialNoAccent,ee)
+    /**
+     * @param {HTMLElement} element 
+     */
+    const hideOnBlur =  (element)=>{
+        element.addEventListener("blur",(event)=>{
+            // if the click was not in a square, we close the grid
+            if(event.explicitOriginalTarget.classList){
+                if(event.explicitOriginalTarget.classList.contains("square")){
+                   return 
+                }
+            } 
+            toggle(false)
+        })
+    }
+    
+
     if(createIcon){   
         const image = document.createElement("div")
         image.innerHTML = icon
@@ -62,14 +78,13 @@ export const MdColorPicker = ({elementName, createIcon, defaultColor}) => {
             image.firstElementChild.style.fill = color;
             return false
         })
-        image.addEventListener("blur",()=>toggle(false))
+        hideOnBlur(image)
         element.appendChild(container)
 
     } else {
-        console.log(element)
         element.parentElement.appendChild(container)
         element.addEventListener("click",toggle)
-        element.addEventListener("blur",()=>toggle(false))
+        hideOnBlur(element)
     }
     ee.on("grid_closed",toggle)
     return ee
