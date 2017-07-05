@@ -74,3 +74,5 @@ export const MdColorPicker = ({elementName, createIcon, defaultColor}) => {
     return ee
 }
 export default MdColorPicker
+if(window)
+    window["MdColorPicker"] = MdColorPicker
