@@ -1,6 +1,5 @@
 /* @flow         */
 /* @flow-runtime */
-import 'babel-polyfill'
 import 'es5-shim/es5-sham'
 import 'es5-shim/es5-shim'
 
