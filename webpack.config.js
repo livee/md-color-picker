@@ -3,7 +3,10 @@ let BUILD_DIR = path.resolve(__dirname, 'lib');
 let APP_DIR = path.resolve(__dirname, 'src');
 
 module.exports = {
-  entry: APP_DIR + '/index.js',
+  entry: [
+    'babel-polyfill',
+    APP_DIR + '/index.js'
+  ],
   devtool: 'source-map',
   output: {
     path: BUILD_DIR,

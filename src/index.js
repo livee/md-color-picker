@@ -1,37 +1,61 @@
-"use strict"
-import colors from 'material-colors/dist/colors'
-import _map from 'lodash.map'
-import _omit from 'lodash.omit'
-import { Grid } from './Picker/Grid'
-import './Picker/index.scss'
-import icon from './icons/paint.svg'
+/* @flow         */
+/* @flow-runtime */
+import 'babel-polyfill'
+import 'es5-shim/es5-sham'
+import 'es5-shim/es5-shim'
+
 import { MDCRipple, MDCRippleFoundation, util } from '@material/ripple';
+import colors from 'material-colors/dist/colors'
 import EventEmitter from 'wolfy87-eventemitter'
+import { Grid } from './Picker/Grid'
+import icon from './icons/paint.svg'
+import { Option } from 'space-lift'
+import _omit from 'lodash.omit'
+import _map from 'lodash.map'
+import './Picker/index.scss'
 
-/**
- * @typedef ColorPickerConfig
- * @type {object}
- * @property {string} elementName 
- * @property {boolean} createIcon
- * @property {string} defaultColor
- */
+type ColorPickerConfig = {
+    elementName: string;
+    createIcon: boolean;
+    defaultColor: string;
+}
+
+type Optional<T> = {
+    value: T;
+    type: string;
+    get: () => *;
+    isDefined: () => *;
+    forEach: (a: *) => *;
+    map: (a: *) => *;
+    flatMap: (a: *) => *;
+    filter: (a: *) => *;
+    fold: (a: *, b: *) => *;
+    orElse: () => *;
+    getOrElse: () => *;
+    toArray: () => *;
+    toString: () => *;
+    toJSON: () => *;
+}
+
+type Props = {
+    element: Optional<HTMLElement>;
+    toggle: Function;
+    defaultColor: string;
+    ee: EventEmitter;
+    container: HTMLElement;
+    hideOnBlur: Function;
+}
 
 
-/**
- * 
- * @param {Object} object 
- * @return {string[][]}
- */
-const extract = (object) =>
+const extract = (object: Object): string[][] =>
     _map(object, (item) => _map(item))
-/**
- * @param {ColorPickerConfig} config
- * @return {EventEmitter}
- */
-export const MdColorPicker = ({elementName, createIcon, defaultColor}) => {
 
+export const MdColorPicker = (config: ColorPickerConfig): EventEmitter => {
+
+    const {elementName, createIcon, defaultColor} = config
     const ee = new EventEmitter()
-    const element = document.getElementById(elementName);
+
+    const element: Optional<HTMLElement> = Option(document.getElementById(elementName));
     const omitedColors = ['black', 'white', 'lightText', 'lightIcons', 'darkText', 'darkIcons']
     const materialColors = extract(_omit(colors, omitedColors))
 
@@ -50,39 +74,82 @@ export const MdColorPicker = ({elementName, createIcon, defaultColor}) => {
         return false
     }
     Grid(container, materialNoAccent,ee)
-    /**
-     * @param {HTMLElement} element 
-     */
-    const hideOnBlur =  (element)=>{
+    
+    const hideOnBlur =  (element: HTMLElement)=>{
         element.addEventListener("blur",(event)=>{
             toggle(false)
         })
     }
     
-
-    if(createIcon){   
-        const image = document.createElement("div")
-        image.innerHTML = icon
-        image.setAttribute("class", "round-btn mdc-elevation--z1")
-        const ripple = new MDCRipple(image);
-        image.addEventListener("click",toggle)
-        element.appendChild(image)
-        image.firstElementChild.style.fill = defaultColor
-        ee.on("color-changed",(color)=>{
-            image.firstElementChild.style.fill = color;
-            return false
-        })
-        hideOnBlur(image)
-        element.appendChild(container)
-
-    } else {
-        element.parentElement.appendChild(container)
-        element.addEventListener("click",toggle)
-        hideOnBlur(element)
+    const props: Props = {
+        container, defaultColor, ee,
+        element, hideOnBlur, toggle
     }
+
+    if(createIcon)
+        createWithIcon(props)
+    else
+        create(props)
+       
     ee.on("grid_closed",toggle)
     return ee
 }
+
+const createWithIcon = (props: Props): void => {
+    const { defaultColor, element, toggle, ee, container, hideOnBlur } = props
+    const image = document.createElement("div")
+    image.innerHTML = icon
+    image.setAttribute("class", "round-btn mdc-elevation--z1")
+    const ripple = new MDCRipple(image)
+    image.addEventListener("click",toggle)
+
+    Option(image.firstElementChild).fold(
+        () => console.error("Something went wrong creating the color-picker"),
+        (child: SVGSVGElement) => {
+
+            child.style.fill = defaultColor
+             ee.on("color-changed",(color)=>{
+                child.style.fill = color;
+                return false
+            })
+    
+        }
+    )
+
+    /**
+     * we have to insert the icon, we assume that the parent
+     * is a div
+     */
+    element.fold(
+        ()=> console.error("Given element does not exists"),
+        (elem: HTMLDivElement) =>  {
+            hideOnBlur(elem)
+            elem.appendChild(image)
+            elem.appendChild(container)
+        }
+    )    
+}
+/*
+    We don't have to create an icon, so we assume that the color piker will be 
+    binded to an input
+*/
+const create = (props: Props): void => {
+    const { defaultColor, element, toggle, ee, container, hideOnBlur } = props
+    element.fold(
+        ()=>console.error("An error occured locating base element"),
+        (elem: HTMLInputElement)=>{
+            Option(elem.parentElement)
+            .fold(
+                ()=> console.error("An error occured when creating the color-picker"),
+                (parent: HTMLElement) => {
+                    parent.appendChild(container)
+                    elem.addEventListener("click",toggle)
+                    hideOnBlur(elem)
+                }
+            )
+    })
+}
+
 export default MdColorPicker
 if(window)
     window["MdColorPicker"] = MdColorPicker

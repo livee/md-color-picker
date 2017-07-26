@@ -1,3 +1,6 @@
+/* @flow         */
+/* @flow-runtime */
+
 import {Square} from '../Square'
 import EventEmitter from 'wolfy87-eventemitter'
 
@@ -9,6 +12,7 @@ import EventEmitter from 'wolfy87-eventemitter'
  */
 export const Line = (element, colors, ee) => {
     const line = document.createElement("div")
+    line.setAttribute("class","line")
     colors.forEach((color)=>Square(line,color, ee))
     element.appendChild(line)
 }
