@@ -4,7 +4,6 @@ let APP_DIR = path.resolve(__dirname, 'src');
 
 module.exports = {
   entry: [
-    'babel-polyfill',
     APP_DIR + '/index.js'
   ],
   devtool: 'source-map',

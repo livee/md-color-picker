@@ -1,7 +1,5 @@
 /* @flow         */
 /* @flow-runtime */
-import 'es5-shim/es5-sham'
-import 'es5-shim/es5-shim'
 
 import { MDCRipple, MDCRippleFoundation, util } from '@material/ripple';
 import colors from 'material-colors/dist/colors'
