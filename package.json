@@ -24,6 +24,7 @@
     "@material/ripple": "^0.8.1",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-stage-2": "^6.24.1",
+    "babili-webpack-plugin": "^0.1.2",
     "css-loader": "^0.28.4",
     "flow-runtime": "^0.14.0",
     "lodash.map": "^4.6.0",

@@ -1,6 +1,7 @@
 let path = require('path');
 let BUILD_DIR = path.resolve(__dirname, 'lib');
 let APP_DIR = path.resolve(__dirname, 'src');
+const BabiliPlugin = require("babili-webpack-plugin");
 
 module.exports = {
   entry: [
@@ -41,4 +42,7 @@ module.exports = {
       }
     ],
   },
+    plugins: [
+      new BabiliPlugin()
+    ]
 }
