@@ -15,9 +15,6 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
-  stats: {
-    warning: false,
-  },
   module: {
     loaders: [{
         test: /\.jsx?/,

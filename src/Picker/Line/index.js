@@ -1,6 +1,4 @@
 /* @flow         */
-/* @flow-runtime */
-
 import {Square} from '../Square'
 import EventEmitter from 'wolfy87-eventemitter'
 

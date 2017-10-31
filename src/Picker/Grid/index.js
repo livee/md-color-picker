@@ -1,10 +1,7 @@
 /* @flow         */
-/* @flow-runtime */
-
 "use strict"
 import {Line} from '../Line'
 import EventEmitter from 'wolfy87-eventemitter'
-
 
 export const Grid = (element: HTMLElement, colors: string[][], ee: EventEmitter) => {
 

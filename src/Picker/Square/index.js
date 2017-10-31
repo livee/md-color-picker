@@ -1,6 +1,4 @@
 /* @flow         */
-/* @flow-runtime */
-
 import EventEmitter from 'wolfy87-eventemitter'
 
 export const Square = (element: HTMLElement, color: string, ee: EventEmitter) => {

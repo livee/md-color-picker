@@ -1,6 +1,4 @@
 /* @flow         */
-/* @flow-runtime */
-
 import { MDCRipple, MDCRippleFoundation, util } from '@material/ripple';
 import colors from 'material-colors/dist/colors'
 import EventEmitter from 'wolfy87-eventemitter'
