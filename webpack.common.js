@@ -17,9 +17,13 @@ module.exports = {
   },
   module: {
     loaders: [{
-        test: /\.jsx?/,
+        test: /\.js/,
         include: APP_DIR,
         loader: 'babel-loader',
+        options:{
+          presets: ["es2015","flow","stage-2"],
+          plugins: ["babel-plugin-add-module-exports"]
+        }
       }, {
         test: /\.scss$/,
         use: [{

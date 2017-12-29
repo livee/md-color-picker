@@ -1,5 +1,5 @@
 /* @flow         */
-import { MDCRipple, MDCRippleFoundation, util } from '@material/ripple';
+import { MDCRipple, MDCRippleFoundation, util } from '@material/ripple/dist/mdc.ripple';
 import colors from 'material-colors/dist/colors'
 import EventEmitter from 'wolfy87-eventemitter'
 import { Grid } from './Picker/Grid'

@@ -3,10 +3,10 @@ const common = require('./webpack.common')
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const webpack = require('webpack')
 module.exports = merge(common,{
-    devtool: 'source-map',
+    //devtool: 'source-map',
     plugins: [
         new UglifyjsWebpackPlugin({
-            sourceMap: true
+           // sourceMap: true
         }),
         new webpack.DefinePlugin({
             'process.env': {
