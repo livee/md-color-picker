@@ -17,9 +17,7 @@
     "node-sass": "^4.8.1",
     "sass-loader": "^6.0.7",
     "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.11"
-  },
-  "dependencies": {
+    "webpack-cli": "^2.0.11",
     "@material/elevation": "^0.28.0",
     "@material/ripple": "^0.32.0",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -38,5 +36,6 @@
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-merge": "^4.1.2",
     "wolfy87-eventemitter": "^5.2.1"
-  }
+  },
+  "dependencies": {}
 }
