@@ -11,39 +11,39 @@ module.exports = {
   output: {
     path: BUILD_DIR,
     filename: 'MdColorPicker.js',
-    library:'MdColorPicker',
+    library: 'MdColorPicker',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
   module: {
-    loaders: [{
-        test: /\.js/,
-        include: APP_DIR,
-        loader: 'babel-loader',
-        options:{
-          presets: ["es2015","flow","stage-2"],
-          plugins: ["babel-plugin-add-module-exports"]
-        }
-      }, {
-        test: /\.scss$/,
-        use: [{
-          loader: "style-loader"
-        }, {
-          loader: "css-loader"
-        }, {
-          loader: "sass-loader",
-          options: {
-            includePaths: ['node_modules', 'src']
-          }
-        }]
-      },
-      {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader',
+    rules: [{
+      test: /\.js/,
+      include: APP_DIR,
+      loader: 'babel-loader',
+      options: {
+        presets: ["es2015", "flow", "stage-2"],
+        plugins: ["babel-plugin-add-module-exports"]
       }
+    }, {
+      test: /\.scss$/,
+      use: [{
+        loader: "style-loader"
+      }, {
+        loader: "css-loader"
+      }, {
+        loader: "sass-loader",
+        options: {
+          includePaths: ['node_modules', 'src']
+        }
+      }]
+    },
+    {
+      test: /\.svg$/,
+      loader: 'svg-inline-loader',
+    }
     ],
   },
-    plugins: [
-      new BabiliPlugin()
-    ]
+  plugins: [
+    //new BabiliPlugin()
+  ]
 }

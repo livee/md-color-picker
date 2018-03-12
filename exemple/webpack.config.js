@@ -5,36 +5,33 @@ let APP_DIR = path.resolve(__dirname, './');
 
 module.exports = {
   entry: APP_DIR + '/index.js',
-    output: {
-        path: BUILD_DIR,
-        filename: 'bundle.js'
-    },
-    stats: {
-        warning: false,
-},
+  output: {
+    path: BUILD_DIR,
+    filename: 'bundle.js'
+  },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?/,
         include: APP_DIR,
         loader: 'babel-loader',
       }, {
-         test: /\.scss$/,
-            use: [{
-                loader: "style-loader"
-            }, {
-                loader: "css-loader"
-            }, {
-                loader: "sass-loader",
-                options: {
-                   includePaths: ['node_modules','src']
-                }
-            }]
+        test: /\.scss$/,
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader"
+        }, {
+          loader: "sass-loader",
+          options: {
+            includePaths: ['node_modules', 'src']
+          }
+        }]
       },
       {
         test: /\.svg$/,
         loader: 'svg-inline-loader'
-    }
+      }
     ],
   }
 }

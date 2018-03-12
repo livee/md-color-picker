@@ -12,10 +12,7 @@
     cursor: pointer;
     padding: 10px;  
     border-radius: 50%;
-    @include mdc-ripple-base;
-    @include mdc-ripple-bg((pseudo: "::before"));
-    @include mdc-ripple-fg((pseudo: "::after"));
-    
+    @include mdc-ripple-surface;
     overflow: hidden;
 }
 .color-container{
